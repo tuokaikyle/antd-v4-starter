@@ -12,6 +12,7 @@ import {
   UserOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  NotificationOutlined,
 } from '@ant-design/icons';
 import { useState } from 'react';
 import type { MenuProps } from 'antd';
@@ -36,6 +37,25 @@ const menuItems: MenuItem[] = [
     icon: <UserOutlined />,
     label: <Link to='/users'>Users</Link>,
   },
+  {
+    key: 'sub3',
+    icon: <NotificationOutlined />,
+    label: 'Post',
+    children: [
+      {
+        key: '/post/csr',
+        label: <Link to='/post/csr'>CSR</Link>,
+      },
+      {
+        key: '/post/ssr',
+        label: <Link to='/post/ssr'>SSR</Link>,
+      },
+      {
+        key: '/post/ssg',
+        label: <Link to='/post/ssg'>SSG</Link>,
+      },
+    ],
+  },
 ];
 
 export const Route = createRootRoute({
@@ -49,7 +69,12 @@ function RootComponent() {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
+      <Sider
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+        style={{ background: 'white' }}
+      >
         <div
           style={{
             height: 32,
@@ -59,14 +84,14 @@ function RootComponent() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: 'white',
+            color: 'green',
             fontWeight: 'bold',
           }}
         >
           {collapsed ? 'MA' : 'My App'}
         </div>
         <Menu
-          theme='dark'
+          theme='light'
           mode='inline'
           selectedKeys={[currentPath]}
           items={menuItems}
@@ -76,7 +101,7 @@ function RootComponent() {
         <Header
           style={{
             padding: 0,
-            background: '#fff',
+            background: 'white',
             display: 'flex',
             alignItems: 'center',
           }}
