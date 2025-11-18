@@ -1,3 +1,18 @@
+# Ant design v4 starter
+
+current:
+layout: sider + layout(header + content + footer)
+header: (style) MenuUnfoldOutlined + Dashboard
+
+to be:
+layout: header + layout[sider + layout(Breadcrumb + content)]
+header: div(MenuOutlined + logo) + Menudropdown
+
+submenu 分出来
+没有分层
+profile下拉菜单样式不对
+review style css px
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -42,15 +57,15 @@ export default defineConfig([
       // other options...
     },
   },
-])
+]);
 ```
 
 You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
 ```js
 // eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+import reactX from 'eslint-plugin-react-x';
+import reactDom from 'eslint-plugin-react-dom';
 
 export default defineConfig([
   globalIgnores(['dist']),
@@ -71,5 +86,5 @@ export default defineConfig([
       // other options...
     },
   },
-])
+]);
 ```

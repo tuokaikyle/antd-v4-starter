@@ -5,14 +5,15 @@ import {
   useRouterState,
 } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
-import { Layout, Menu } from 'antd';
+import { Breadcrumb, Layout, Menu } from 'antd';
 import {
   HomeOutlined,
   InfoCircleOutlined,
   UserOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
   NotificationOutlined,
+  MenuOutlined,
+  SettingOutlined,
+  TagsOutlined,
 } from '@ant-design/icons';
 import { useState } from 'react';
 import type { MenuProps } from 'antd';
@@ -44,15 +45,55 @@ const menuItems: MenuItem[] = [
     children: [
       {
         key: '/post/csr',
+        icon: <TagsOutlined />,
         label: <Link to='/post/csr'>CSR</Link>,
       },
       {
         key: '/post/ssr',
+        icon: <TagsOutlined />,
         label: <Link to='/post/ssr'>SSR</Link>,
       },
       {
         key: '/post/ssg',
+        icon: <TagsOutlined />,
         label: <Link to='/post/ssg'>SSG</Link>,
+      },
+    ],
+  },
+];
+
+const profileItems: MenuItem[] = [
+  {
+    key: 'sub3',
+    icon: <SettingOutlined />,
+    label: 'Profile',
+    children: [
+      {
+        key: '/post/csr',
+        icon: <NotificationOutlined />,
+        label: <Link to='/post/csr'>CSR</Link>,
+      },
+      {
+        key: '/post/ssr',
+        icon: <SettingOutlined />,
+        label: <Link to='/post/ssr'>SSR</Link>,
+      },
+      {
+        key: '/post/ssg',
+        icon: <TagsOutlined />,
+        label: <Link to='/post/ssg'>SSG</Link>,
+        children: [
+          {
+            key: '/post/csr',
+            icon: <NotificationOutlined />,
+            label: <Link to='/post/csr'>CSR</Link>,
+          },
+          {
+            key: '/post/ssr',
+            icon: <SettingOutlined />,
+            label: <Link to='/post/ssr'>SSR</Link>,
+          },
+        ],
       },
     ],
   },
@@ -69,68 +110,75 @@ function RootComponent() {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Sider
-        trigger={null}
-        collapsible
-        collapsed={collapsed}
-        style={{ background: 'white' }}
-      >
-        <div
-          style={{
-            height: 32,
-            margin: 16,
-            background: 'rgba(255, 255, 255, 0.2)',
-            borderRadius: '6px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'green',
-            fontWeight: 'bold',
-          }}
-        >
-          {collapsed ? 'MA' : 'My App'}
-        </div>
-        <Menu
-          theme='light'
-          mode='inline'
-          selectedKeys={[currentPath]}
-          items={menuItems}
-        />
-      </Sider>
       <Layout>
         <Header
           style={{
             padding: 0,
             background: 'white',
             display: 'flex',
-            alignItems: 'center',
+            justifyContent: 'space-between',
           }}
         >
-          {collapsed ? (
-            <MenuUnfoldOutlined
-              style={{ fontSize: '18px', padding: '0 24px', cursor: 'pointer' }}
-              onClick={() => setCollapsed(!collapsed)}
+          <div>
+            <MenuOutlined
+              onClick={() => {
+                setCollapsed(!collapsed);
+              }}
+              style={{ fontSize: '18px', padding: '0 30px', cursor: 'pointer' }}
             />
-          ) : (
-            <MenuFoldOutlined
-              style={{ fontSize: '18px', padding: '0 24px', cursor: 'pointer' }}
-              onClick={() => setCollapsed(!collapsed)}
-            />
-          )}
-          <span style={{ fontSize: '18px', fontWeight: 'bold' }}>
-            Dashboard
-          </span>
+            <span
+              style={{
+                fontSize: '18px',
+                background: '#d9f7be',
+                color: '#52c41a',
+                fontWeight: 'bold',
+                padding: '8px',
+              }}
+            >
+              Antd starter
+            </span>
+          </div>
+
+          <Menu
+            mode='horizontal'
+            style={{ paddingInline: '8px' }}
+            items={profileItems}
+          ></Menu>
         </Header>
-        <Content
-          style={{
-            margin: '24px 16px',
-            padding: 24,
-            background: '#fff',
-            minHeight: 280,
-          }}
-        >
-          <Outlet />
-        </Content>
+
+        <Layout>
+          <Sider
+            trigger={null}
+            collapsible
+            collapsed={collapsed}
+            style={{ background: 'white' }}
+          >
+            <Menu
+              theme='light'
+              mode='inline'
+              selectedKeys={[currentPath]}
+              items={menuItems}
+            />
+          </Sider>
+          <Layout>
+            <Breadcrumb style={{ margin: '16px' }}>
+              <Breadcrumb.Item>Home</Breadcrumb.Item>
+              <Breadcrumb.Item>List</Breadcrumb.Item>
+              <Breadcrumb.Item>App</Breadcrumb.Item>
+            </Breadcrumb>
+            <Content
+              style={{
+                margin: '0 16px',
+                padding: 24,
+                background: '#fff',
+                minHeight: 280,
+              }}
+            >
+              <Outlet />
+            </Content>
+          </Layout>
+        </Layout>
+
         <Footer style={{ textAlign: 'center' }}>
           My App ©{new Date().getFullYear()} Created with Ant Design
         </Footer>
