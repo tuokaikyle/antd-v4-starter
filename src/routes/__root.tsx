@@ -8,12 +8,12 @@ import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 import { Breadcrumb, Layout, Menu } from 'antd';
 import {
   HomeOutlined,
-  InfoCircleOutlined,
   UserOutlined,
-  NotificationOutlined,
   MenuOutlined,
   SettingOutlined,
   TagsOutlined,
+  FolderOpenOutlined,
+  BookOutlined,
 } from '@ant-design/icons';
 import { useState } from 'react';
 import type { MenuProps } from 'antd';
@@ -29,69 +29,57 @@ const menuItems: MenuItem[] = [
     label: <Link to='/'>Home</Link>,
   },
   {
-    key: '/about',
-    icon: <InfoCircleOutlined />,
-    label: <Link to='/about'>About</Link>,
-  },
-  {
     key: '/users',
     icon: <UserOutlined />,
     label: <Link to='/users'>Users</Link>,
   },
   {
-    key: 'sub3',
-    icon: <NotificationOutlined />,
-    label: 'Post',
+    key: '/book',
+    icon: <BookOutlined />,
+    label: 'Book',
     children: [
       {
-        key: '/post/csr',
+        key: '/book/french',
         icon: <TagsOutlined />,
-        label: <Link to='/post/csr'>CSR</Link>,
+
+        label: <Link to='/book/french'>french</Link>,
       },
       {
-        key: '/post/ssr',
+        key: '/book/spanish',
         icon: <TagsOutlined />,
-        label: <Link to='/post/ssr'>SSR</Link>,
-      },
-      {
-        key: '/post/ssg',
-        icon: <TagsOutlined />,
-        label: <Link to='/post/ssg'>SSG</Link>,
+
+        label: <Link to='/book/spanish'>Spanish</Link>,
       },
     ],
+  },
+  {
+    key: '/about',
+    icon: <FolderOpenOutlined />,
+    label: <Link to='/about'>About</Link>,
   },
 ];
 
 const profileItems: MenuItem[] = [
   {
-    key: 'sub3',
+    key: 'settings',
     icon: <SettingOutlined />,
-    label: 'Profile',
+    label: 'Settings',
     children: [
       {
-        key: '/post/csr',
-        icon: <NotificationOutlined />,
-        label: <Link to='/post/csr'>CSR</Link>,
+        key: '/settings/hello',
+        label: <Link to='/settings/hello'>Hello</Link>,
       },
       {
-        key: '/post/ssr',
-        icon: <SettingOutlined />,
-        label: <Link to='/post/ssr'>SSR</Link>,
-      },
-      {
-        key: '/post/ssg',
-        icon: <TagsOutlined />,
-        label: <Link to='/post/ssg'>SSG</Link>,
+        key: '/settings/world',
+        label: <Link to='/settings/world'>World</Link>,
         children: [
           {
-            key: '/post/csr',
-            icon: <NotificationOutlined />,
-            label: <Link to='/post/csr'>CSR</Link>,
+            key: '/settings/world/ab',
+            label: <Link to='/settings/csr'>AB</Link>,
           },
           {
-            key: '/post/ssr',
-            icon: <SettingOutlined />,
-            label: <Link to='/post/ssr'>SSR</Link>,
+            key: '/settings/world/cd',
+            label: <Link to='/settings/ssr'>CD</Link>,
           },
         ],
       },
