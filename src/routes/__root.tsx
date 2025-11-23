@@ -42,7 +42,7 @@ const menuItems: MenuItem[] = [
         key: '/book/french',
         icon: <TagsOutlined />,
 
-        label: <Link to='/book/french'>french</Link>,
+        label: <Link to='/book/french'>French</Link>,
       },
       {
         key: '/book/spanish',
