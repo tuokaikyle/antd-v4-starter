@@ -75,11 +75,11 @@ const profileItems: MenuItem[] = [
         children: [
           {
             key: '/settings/world/ab',
-            label: <Link to='/settings/csr'>AB</Link>,
+            label: <Link to='/settings/ab'>AB</Link>,
           },
           {
             key: '/settings/world/cd',
-            label: <Link to='/settings/ssr'>CD</Link>,
+            label: <Link to='/settings/cd'>CD</Link>,
           },
         ],
       },
