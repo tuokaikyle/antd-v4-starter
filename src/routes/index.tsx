@@ -12,7 +12,7 @@ const { Title, Paragraph } = Typography;
 function Index() {
   return (
     <div>
-      <h1>Dream of the Red Chamber</h1>
+      <Title level={4}>Dream of the Red Chamber</Title>
       <Collapse defaultActiveKey={['0']}>
         {versions.map((version, index) => (
           <Panel

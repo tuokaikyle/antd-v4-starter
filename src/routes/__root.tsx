@@ -34,21 +34,19 @@ const menuItems: MenuItem[] = [
     label: <Link to='/users'>Users</Link>,
   },
   {
-    key: '/book',
+    key: '/books',
     icon: <BookOutlined />,
     label: 'Book',
     children: [
       {
-        key: '/book/french',
+        key: '/books/french',
         icon: <TagsOutlined />,
-
-        label: <Link to='/book/french'>French</Link>,
+        label: <Link to='/books/french'>French</Link>,
       },
       {
-        key: '/book/spanish',
+        key: '/books/spanish',
         icon: <TagsOutlined />,
-
-        label: <Link to='/book/spanish'>Spanish</Link>,
+        label: <Link to='/books/spanish'>Spanish</Link>,
       },
     ],
   },
@@ -71,15 +69,15 @@ const profileItems: MenuItem[] = [
       },
       {
         key: '/settings/world',
-        label: <Link to='/settings/world'>World</Link>,
+        label: 'World',
         children: [
           {
             key: '/settings/world/ab',
-            label: <Link to='/settings/ab'>AB</Link>,
+            label: <Link to='/settings/world/ab'>AB</Link>,
           },
           {
             key: '/settings/world/cd',
-            label: <Link to='/settings/cd'>CD</Link>,
+            label: <Link to='/settings/world/cd'>CD</Link>,
           },
         ],
       },
