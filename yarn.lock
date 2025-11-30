@@ -21,7 +21,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ant-design/icons@npm:^4.8.2":
+"@ant-design/icons@npm:4, @ant-design/icons@npm:^4.8.2":
   version: 4.8.3
   resolution: "@ant-design/icons@npm:4.8.3"
   dependencies:
@@ -1467,6 +1467,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "antd-v4-starter@workspace:."
   dependencies:
+    "@ant-design/icons": "npm:4"
     "@eslint/js": "npm:^9.39.1"
     "@tanstack/react-router": "npm:^1.136.8"
     "@tanstack/react-router-devtools": "npm:^1.139.12"
