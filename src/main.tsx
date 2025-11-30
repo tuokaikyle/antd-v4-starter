@@ -1,4 +1,3 @@
-// src/main.tsx
 import 'antd/dist/antd.css'; // AntD V4 Global Styles
 
 import React from 'react';
