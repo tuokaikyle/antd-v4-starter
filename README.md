@@ -3,8 +3,9 @@
 - Ant Design V4
 - React 18
 - Vite
-- typescript
+- Typescript
 - Tanstack Router
+- Yarn v4
 
 ## Notes
 
