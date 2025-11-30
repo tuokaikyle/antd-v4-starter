@@ -7,11 +7,7 @@ import { tanstackRouter } from '@tanstack/router-plugin/vite'
 export default defineConfig({
   plugins: [
     tanstackRouter({}),
-    react({
-      babel: {
-        plugins: [['babel-plugin-react-compiler']],
-      },
-    })
+    react()
   ],
   css: {
     preprocessorOptions: {
