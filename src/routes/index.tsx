@@ -1,20 +1,38 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { Card, Row, Col, Statistic, Collapse, Tag, Typography } from 'antd';
-import { groupNumbers, versions } from '../versions';
+import { groupNumbers } from '../utils';
+import { useState, useEffect } from 'react';
 
 export const Route = createFileRoute('/')({
   component: Index,
 });
 
+const DATA_URL =
+  'https://raw.githubusercontent.com/tuokaikyle/DreamOfTheRedChamberData/refs/heads/main/versions.json';
+
 const { Panel } = Collapse;
-const { Title, Paragraph } = Typography;
+const { Link, Title, Paragraph } = Typography;
 
 function Index() {
+  const [data, setData] = useState<any[]>([]);
+
+  // fetch data from api and set data to state
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(DATA_URL);
+      const jsonData = await response.json();
+      setData(jsonData);
+    };
+    fetchData();
+  }, []);
+
+  if (!data || data.length === 0) return <div>Loading...</div>;
+
   return (
     <div>
       <Title level={4}>Dream of the Red Chamber</Title>
       <Collapse defaultActiveKey={['0']}>
-        {versions.map((version, index) => (
+        {data.map((version, index) => (
           <Panel
             header={`${version.version} (${version.year ?? '未知年份'})`}
             key={index}
@@ -45,7 +63,9 @@ function Index() {
                 <Col span={24} style={{ marginTop: '16px' }}>
                   <Title level={5}>Included Chapters:</Title>
                   {version.chapters.length === version.chapters.slice(-1)[0]
-                    ? `${version.chapters[0]} - ${version.chapters.slice(-1)[0]}`
+                    ? `${version.chapters[0]} - ${
+                        version.chapters.slice(-1)[0]
+                      }`
                     : groupNumbers(version.chapters).map(
                         (group, groupIndex) => (
                           <Paragraph key={groupIndex}>
@@ -73,6 +93,12 @@ function Index() {
           </Panel>
         ))}
       </Collapse>
+      <Paragraph style={{ marginTop: '16px' }}>
+        *The data is from {' '}
+        <Link href='https://github.com/tuokaikyle/DreamOfTheRedChamberData/blob/main/versions.ts' target="_blank">
+        DreamOfTheRedChamberData
+      </Link>
+      </Paragraph>
     </div>
   );
 }
