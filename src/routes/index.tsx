@@ -8,7 +8,7 @@ export const Route = createFileRoute('/')({
 });
 
 const DATA_URL =
-  'https://raw.githubusercontent.com/tuokaikyle/DreamOfTheRedChamberData/refs/heads/main/versions.json';
+  'https://raw.githubusercontent.com/tuokaikyle/DreamOfTheRedChamberData/refs/heads/main/versions-generated.json';
 
 const { Panel } = Collapse;
 const { Link, Title, Paragraph } = Typography;
