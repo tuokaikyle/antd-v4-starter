@@ -23,8 +23,10 @@ function Index() {
               <Row gutter={16}>
                 <Col span={8}>
                   <Title level={5}>Also Known As:</Title>
-                  {version.names.map((name) => (
-                    <Tag color='green'>{name}</Tag>
+                  {version.names.map((name, nameIndex) => (
+                    <Tag color='green' key={nameIndex}>
+                      {name}
+                    </Tag>
                   ))}
                 </Col>
                 <Col span={8}>
@@ -44,19 +46,23 @@ function Index() {
                   <Title level={5}>Included Chapters:</Title>
                   {version.chapters.length === version.chapters.slice(-1)[0]
                     ? `${version.chapters[0]} - ${version.chapters.slice(-1)[0]}`
-                    : groupNumbers(version.chapters).map((group) => (
-                        <Paragraph>{group.join(', ')}</Paragraph>
-                      ))}
+                    : groupNumbers(version.chapters).map(
+                        (group, groupIndex) => (
+                          <Paragraph key={groupIndex}>
+                            {group.join(', ')}
+                          </Paragraph>
+                        )
+                      )}
                 </Col>
               </Row>
               <Row>
                 <Col span={24} style={{ marginTop: '16px' }}>
-                  {version.description.map((desc) => (
-                    <div>
+                  {version.description.map((desc, dIndex) => (
+                    <div key={dIndex}>
                       <Title level={5}>{desc.source}</Title>
                       <ul>
-                        {desc.content.map((para) => (
-                          <li>{para}</li>
+                        {desc.content.map((para, paraIndex) => (
+                          <li key={paraIndex}>{para}</li>
                         ))}
                       </ul>
                     </div>
