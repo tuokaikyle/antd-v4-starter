@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { Card, Row, Col, Statistic, Collapse, Tag, Typography } from 'antd';
-import { groupNumbers } from '../utils';
+import { groupNumbers, type Version } from '../utils';
 import { useState, useEffect } from 'react';
 
 export const Route = createFileRoute('/')({
@@ -14,7 +14,7 @@ const { Panel } = Collapse;
 const { Link, Title, Paragraph } = Typography;
 
 function Index() {
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<Version[]>([]);
 
   // fetch data from api and set data to state
   useEffect(() => {
