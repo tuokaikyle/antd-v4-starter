@@ -94,10 +94,13 @@ function Index() {
         ))}
       </Collapse>
       <Paragraph style={{ marginTop: '16px' }}>
-        *The data is from {' '}
-        <Link href='https://github.com/tuokaikyle/DreamOfTheRedChamberData/blob/main/versions.ts' target="_blank">
-        DreamOfTheRedChamberData
-      </Link>
+        *The data is from this github repository{' '}
+        <Link
+          href='https://github.com/tuokaikyle/DreamOfTheRedChamberData/blob/main/versions.ts'
+          target='_blank'
+        >
+          DreamOfTheRedChamberData
+        </Link>
       </Paragraph>
     </div>
   );
