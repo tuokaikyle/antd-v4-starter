@@ -7,7 +7,6 @@
 - Vite
 - Typescript
 - Tanstack Router
-- Yarn v4
 
 ## Notes
 
