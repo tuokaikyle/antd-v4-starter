@@ -110,7 +110,7 @@ function RootComponent() {
               onClick={() => {
                 setCollapsed(!collapsed);
               }}
-              style={{ fontSize: '18px', padding: '0 30px', cursor: 'pointer' }}
+              style={{ fontSize: '18px', padding: '0 20px', cursor: 'pointer' }}
             />
             <span
               style={{
@@ -134,8 +134,10 @@ function RootComponent() {
 
         <Layout>
           <Sider
-            trigger={null}
             collapsible
+            trigger={null}
+            breakpoint='md'
+            collapsedWidth='60'
             collapsed={collapsed}
             style={{ background: 'white' }}
           >

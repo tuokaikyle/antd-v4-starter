@@ -10,4 +10,5 @@
 
 ## Notes
 
-After the build it says "Some chunks are larger than 500 kB after minification.". Not an issue, only tells might slow down the initial load.
+After the build it says "Some chunks are larger than 500 kB after minification.". Not an issue, only tells might slow down the initial load.  
+Mobile display of the table is not optimized. Table is best presented on larger screens.

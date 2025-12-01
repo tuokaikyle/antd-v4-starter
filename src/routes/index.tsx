@@ -38,8 +38,8 @@ function Index() {
             key={index}
           >
             <Card>
-              <Row gutter={16}>
-                <Col span={8}>
+              <Row gutter={[16, { xs: 8, sm: 16 }]}>
+                <Col lg={8}>
                   <Title level={5}>Also Known As:</Title>
                   {version.names.map((name, nameIndex) => (
                     <Tag color='green' key={nameIndex}>
@@ -47,14 +47,14 @@ function Index() {
                     </Tag>
                   ))}
                 </Col>
-                <Col span={8}>
+                <Col lg={8}>
                   <Statistic
                     title='Chapter count'
                     value={version.chapterCount}
                   />
                 </Col>
                 {version.zhipiCount && (
-                  <Col span={8}>
+                  <Col lg={8}>
                     <Statistic title='评语数量' value={version.zhipiCount} />
                   </Col>
                 )}
