@@ -5,7 +5,7 @@ import {
   useRouterState,
 } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
-import { Breadcrumb, Layout, Menu } from 'antd';
+import { Breadcrumb, Dropdown, Layout, Menu } from 'antd';
 import {
   HomeOutlined,
   UserOutlined,
@@ -57,29 +57,22 @@ const menuItems: MenuItem[] = [
   },
 ];
 
-const profileItems: MenuItem[] = [
+const headerMenuItems: MenuProps['items'] = [
   {
-    key: 'settings',
-    icon: <SettingOutlined />,
-    label: 'Settings',
+    key: '/settings/hello',
+    label: <Link to='/settings/hello'>Hello</Link>,
+  },
+  {
+    key: '/settings/world',
+    label: 'World',
     children: [
       {
-        key: '/settings/hello',
-        label: <Link to='/settings/hello'>Hello</Link>,
+        key: '/settings/world/ab',
+        label: <Link to='/settings/world/ab'>AB</Link>,
       },
       {
-        key: '/settings/world',
-        label: 'World',
-        children: [
-          {
-            key: '/settings/world/ab',
-            label: <Link to='/settings/world/ab'>AB</Link>,
-          },
-          {
-            key: '/settings/world/cd',
-            label: <Link to='/settings/world/cd'>CD</Link>,
-          },
-        ],
+        key: '/settings/world/cd',
+        label: <Link to='/settings/world/cd'>CD</Link>,
       },
     ],
   },
@@ -125,11 +118,9 @@ function RootComponent() {
             </span>
           </div>
 
-          <Menu
-            mode='horizontal'
-            style={{ paddingInline: '8px' }}
-            items={profileItems}
-          ></Menu>
+          <Dropdown menu={{ items: headerMenuItems }} placement='bottomRight'>
+            <SettingOutlined style={{ paddingInline: '24px' }} />
+          </Dropdown>
         </Header>
 
         <Layout>
