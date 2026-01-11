@@ -128,6 +128,7 @@ function RootComponent() {
             collapsible
             trigger={null}
             breakpoint='md'
+            width={240}
             collapsedWidth='60'
             collapsed={collapsed}
             style={{ background: 'white' }}
