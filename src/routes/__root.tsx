@@ -51,6 +51,23 @@ const menuItems: MenuItem[] = [
     ],
   },
   {
+    key: '/yuwen',
+    icon: <BookOutlined />,
+    label: '语文',
+    children: [
+      {
+        key: '/yuwen/primary',
+        icon: <TagsOutlined />,
+        label: <Link to='/yuwen/primary'>小学课文</Link>,
+      },
+      {
+        key: '/yuwen/spanish',
+        icon: <TagsOutlined />,
+        label: <Link to='/books/spanish'>Spanish</Link>,
+      },
+    ],
+  },
+  {
     key: '/about',
     icon: <FolderOpenOutlined />,
     label: <Link to='/about'>About</Link>,
