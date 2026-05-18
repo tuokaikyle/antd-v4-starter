@@ -1,6 +1,6 @@
 import type { Book } from "./renjiaoshe";
 
-const bubianban: Book[] = [
+export const bubianban: Book[] = [
   {
     bookName: '部编版一年级语文上册',
     articles: [

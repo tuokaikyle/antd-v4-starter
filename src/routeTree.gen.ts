@@ -12,7 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UsersIndexRouteImport } from './routes/users/index'
-import { Route as YuwenPrimaryRouteImport } from './routes/yuwen/primary'
+import { Route as YuwenRenjiaosheRouteImport } from './routes/yuwen/renjiaoshe'
+import { Route as YuwenBubianbanRouteImport } from './routes/yuwen/bubianban'
 import { Route as UsersUserIdRouteImport } from './routes/users/$userId'
 import { Route as SettingsHelloRouteImport } from './routes/settings/hello'
 import { Route as BooksSpanishRouteImport } from './routes/books/spanish'
@@ -35,9 +36,14 @@ const UsersIndexRoute = UsersIndexRouteImport.update({
   path: '/users/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const YuwenPrimaryRoute = YuwenPrimaryRouteImport.update({
-  id: '/yuwen/primary',
-  path: '/yuwen/primary',
+const YuwenRenjiaosheRoute = YuwenRenjiaosheRouteImport.update({
+  id: '/yuwen/renjiaoshe',
+  path: '/yuwen/renjiaoshe',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const YuwenBubianbanRoute = YuwenBubianbanRouteImport.update({
+  id: '/yuwen/bubianban',
+  path: '/yuwen/bubianban',
   getParentRoute: () => rootRouteImport,
 } as any)
 const UsersUserIdRoute = UsersUserIdRouteImport.update({
@@ -78,7 +84,8 @@ export interface FileRoutesByFullPath {
   '/books/spanish': typeof BooksSpanishRoute
   '/settings/hello': typeof SettingsHelloRoute
   '/users/$userId': typeof UsersUserIdRoute
-  '/yuwen/primary': typeof YuwenPrimaryRoute
+  '/yuwen/bubianban': typeof YuwenBubianbanRoute
+  '/yuwen/renjiaoshe': typeof YuwenRenjiaosheRoute
   '/users': typeof UsersIndexRoute
   '/settings/world/ab': typeof SettingsWorldAbRoute
   '/settings/world/cd': typeof SettingsWorldCdRoute
@@ -90,7 +97,8 @@ export interface FileRoutesByTo {
   '/books/spanish': typeof BooksSpanishRoute
   '/settings/hello': typeof SettingsHelloRoute
   '/users/$userId': typeof UsersUserIdRoute
-  '/yuwen/primary': typeof YuwenPrimaryRoute
+  '/yuwen/bubianban': typeof YuwenBubianbanRoute
+  '/yuwen/renjiaoshe': typeof YuwenRenjiaosheRoute
   '/users': typeof UsersIndexRoute
   '/settings/world/ab': typeof SettingsWorldAbRoute
   '/settings/world/cd': typeof SettingsWorldCdRoute
@@ -103,7 +111,8 @@ export interface FileRoutesById {
   '/books/spanish': typeof BooksSpanishRoute
   '/settings/hello': typeof SettingsHelloRoute
   '/users/$userId': typeof UsersUserIdRoute
-  '/yuwen/primary': typeof YuwenPrimaryRoute
+  '/yuwen/bubianban': typeof YuwenBubianbanRoute
+  '/yuwen/renjiaoshe': typeof YuwenRenjiaosheRoute
   '/users/': typeof UsersIndexRoute
   '/settings/world/ab': typeof SettingsWorldAbRoute
   '/settings/world/cd': typeof SettingsWorldCdRoute
@@ -117,7 +126,8 @@ export interface FileRouteTypes {
     | '/books/spanish'
     | '/settings/hello'
     | '/users/$userId'
-    | '/yuwen/primary'
+    | '/yuwen/bubianban'
+    | '/yuwen/renjiaoshe'
     | '/users'
     | '/settings/world/ab'
     | '/settings/world/cd'
@@ -129,7 +139,8 @@ export interface FileRouteTypes {
     | '/books/spanish'
     | '/settings/hello'
     | '/users/$userId'
-    | '/yuwen/primary'
+    | '/yuwen/bubianban'
+    | '/yuwen/renjiaoshe'
     | '/users'
     | '/settings/world/ab'
     | '/settings/world/cd'
@@ -141,7 +152,8 @@ export interface FileRouteTypes {
     | '/books/spanish'
     | '/settings/hello'
     | '/users/$userId'
-    | '/yuwen/primary'
+    | '/yuwen/bubianban'
+    | '/yuwen/renjiaoshe'
     | '/users/'
     | '/settings/world/ab'
     | '/settings/world/cd'
@@ -154,7 +166,8 @@ export interface RootRouteChildren {
   BooksSpanishRoute: typeof BooksSpanishRoute
   SettingsHelloRoute: typeof SettingsHelloRoute
   UsersUserIdRoute: typeof UsersUserIdRoute
-  YuwenPrimaryRoute: typeof YuwenPrimaryRoute
+  YuwenBubianbanRoute: typeof YuwenBubianbanRoute
+  YuwenRenjiaosheRoute: typeof YuwenRenjiaosheRoute
   UsersIndexRoute: typeof UsersIndexRoute
   SettingsWorldAbRoute: typeof SettingsWorldAbRoute
   SettingsWorldCdRoute: typeof SettingsWorldCdRoute
@@ -183,11 +196,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UsersIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/yuwen/primary': {
-      id: '/yuwen/primary'
-      path: '/yuwen/primary'
-      fullPath: '/yuwen/primary'
-      preLoaderRoute: typeof YuwenPrimaryRouteImport
+    '/yuwen/renjiaoshe': {
+      id: '/yuwen/renjiaoshe'
+      path: '/yuwen/renjiaoshe'
+      fullPath: '/yuwen/renjiaoshe'
+      preLoaderRoute: typeof YuwenRenjiaosheRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/yuwen/bubianban': {
+      id: '/yuwen/bubianban'
+      path: '/yuwen/bubianban'
+      fullPath: '/yuwen/bubianban'
+      preLoaderRoute: typeof YuwenBubianbanRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/users/$userId': {
@@ -242,7 +262,8 @@ const rootRouteChildren: RootRouteChildren = {
   BooksSpanishRoute: BooksSpanishRoute,
   SettingsHelloRoute: SettingsHelloRoute,
   UsersUserIdRoute: UsersUserIdRoute,
-  YuwenPrimaryRoute: YuwenPrimaryRoute,
+  YuwenBubianbanRoute: YuwenBubianbanRoute,
+  YuwenRenjiaosheRoute: YuwenRenjiaosheRoute,
   UsersIndexRoute: UsersIndexRoute,
   SettingsWorldAbRoute: SettingsWorldAbRoute,
   SettingsWorldCdRoute: SettingsWorldCdRoute,

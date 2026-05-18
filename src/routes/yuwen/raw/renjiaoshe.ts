@@ -11,7 +11,7 @@ export type Lesson = {
 } | {  activity: string;
   topic: string;};
 
-const renjiaoshe: Book[] = [
+export const renjiaoshe: Book[] = [
   {
     bookName: '一年级上册',
     articles: [

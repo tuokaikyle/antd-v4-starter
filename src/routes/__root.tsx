@@ -58,12 +58,12 @@ const menuItems: MenuItem[] = [
       {
         key: '/yuwen/primary',
         icon: <TagsOutlined />,
-        label: <Link to='/yuwen/primary'>小学课文</Link>,
+        label: <Link to='/yuwen/renjiaoshe'>人教社</Link>,
       },
       {
-        key: '/yuwen/spanish',
+        key: '/yuwen/bubianban',
         icon: <TagsOutlined />,
-        label: <Link to='/books/spanish'>Spanish</Link>,
+        label: <Link to='/yuwen/bubianban'>部编版</Link>,
       },
     ],
   },
