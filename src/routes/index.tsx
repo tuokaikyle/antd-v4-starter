@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { Card, Row, Col, Statistic, Collapse, Tag, Typography } from 'antd';
+import { Alert, Card, Row, Col, Statistic, Collapse, Tag, Typography } from 'antd';
 import { groupNumbers, type Version } from '../utils';
 import { useState, useEffect } from 'react';
 
@@ -15,18 +15,74 @@ const { Link, Title, Paragraph } = Typography;
 
 function Index() {
   const [data, setData] = useState<Version[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // fetch data from api and set data to state
   useEffect(() => {
+    const controller = new AbortController();
+
     const fetchData = async () => {
-      const response = await fetch(DATA_URL);
-      const jsonData = await response.json();
-      setData(jsonData);
+      try {
+        setIsLoading(true);
+        setError(null);
+
+        const response = await fetch(DATA_URL, {
+          signal: controller.signal,
+        });
+
+        if (!response.ok) {
+          throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        const jsonData: unknown = await response.json();
+
+        if (!Array.isArray(jsonData)) {
+          throw new Error('The response did not contain the expected data.');
+        }
+
+        setData(jsonData as Version[]);
+      } catch (err) {
+        if (err instanceof DOMException && err.name === 'AbortError') {
+          return;
+        }
+
+        setError(err instanceof Error ? err.message : 'Failed to load data.');
+      } finally {
+        if (!controller.signal.aborted) {
+          setIsLoading(false);
+        }
+      }
     };
+
     fetchData();
+
+    return () => {
+      controller.abort();
+    };
   }, []);
 
-  if (!data || data.length === 0) return <div>Loading...</div>;
+  if (isLoading) return <div>Loading...</div>;
+
+  if (error) {
+    return (
+      <Alert
+        type='error'
+        showIcon
+        message='Unable to load Dream of the Red Chamber data'
+        description={error}
+      />
+    );
+  }
+
+  if (data.length === 0) {
+    return (
+      <Alert
+        type='info'
+        showIcon
+        message='No Dream of the Red Chamber data is available.'
+      />
+    );
+  }
 
   return (
     <div>
