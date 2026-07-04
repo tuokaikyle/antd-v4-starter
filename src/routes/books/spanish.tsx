@@ -1,9 +1,9 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/books/spanish')({
   component: RouteComponent,
-})
+});
 
 function RouteComponent() {
-  return <div>Hello "/books/spanish"!</div>
+  return <div>Spanish book placeholder</div>;
 }

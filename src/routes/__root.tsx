@@ -51,23 +51,6 @@ const menuItems: MenuItem[] = [
     ],
   },
   {
-    key: '/yuwen',
-    icon: <BookOutlined />,
-    label: '语文',
-    children: [
-      {
-        key: '/yuwen/primary',
-        icon: <TagsOutlined />,
-        label: <Link to='/yuwen/renjiaoshe'>人教社</Link>,
-      },
-      {
-        key: '/yuwen/bubianban',
-        icon: <TagsOutlined />,
-        label: <Link to='/yuwen/bubianban'>部编版</Link>,
-      },
-    ],
-  },
-  {
     key: '/about',
     icon: <FolderOpenOutlined />,
     label: <Link to='/about'>About</Link>,
