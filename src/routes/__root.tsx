@@ -78,6 +78,53 @@ const headerMenuItems: MenuProps['items'] = [
   },
 ];
 
+const sidebarKeys = [
+  '/',
+  '/users',
+  '/books',
+  '/books/french',
+  '/books/spanish',
+  '/about',
+];
+
+const breadcrumbLabels: Record<string, string> = {
+  about: 'About',
+  books: 'Book',
+  french: 'French',
+  hello: 'Hello',
+  settings: 'Settings',
+  spanish: 'Spanish',
+  users: 'Users',
+  world: 'World',
+  ab: 'AB',
+  cd: 'CD',
+};
+
+function getSelectedSidebarKeys(pathname: string) {
+  const selectedKey = sidebarKeys
+    .filter((key) =>
+      key === '/' ? pathname === '/' : pathname === key || pathname.startsWith(`${key}/`)
+    )
+    .sort((a, b) => b.length - a.length)[0];
+
+  return selectedKey ? [selectedKey] : [];
+}
+
+function getBreadcrumbItems(pathname: string) {
+  const segments = pathname.split('/').filter(Boolean);
+
+  return [
+    'Home',
+    ...segments.map((segment, index) => {
+      if (index > 0 && segments[index - 1] === 'users') {
+        return `User ${segment}`;
+      }
+
+      return breadcrumbLabels[segment] ?? segment;
+    }),
+  ];
+}
+
 export const Route = createRootRoute({
   component: RootComponent,
 });
@@ -86,6 +133,8 @@ function RootComponent() {
   const [collapsed, setCollapsed] = useState(false);
   const routerState = useRouterState();
   const currentPath = routerState.location.pathname;
+  const selectedSidebarKeys = getSelectedSidebarKeys(currentPath);
+  const breadcrumbItems = getBreadcrumbItems(currentPath);
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -136,15 +185,15 @@ function RootComponent() {
             <Menu
               theme='light'
               mode='inline'
-              selectedKeys={[currentPath]}
+              selectedKeys={selectedSidebarKeys}
               items={menuItems}
             />
           </Sider>
           <Layout>
             <Breadcrumb style={{ margin: '16px' }}>
-              <Breadcrumb.Item>Home</Breadcrumb.Item>
-              <Breadcrumb.Item>List</Breadcrumb.Item>
-              <Breadcrumb.Item>App</Breadcrumb.Item>
+              {breadcrumbItems.map((item) => (
+                <Breadcrumb.Item key={item}>{item}</Breadcrumb.Item>
+              ))}
             </Breadcrumb>
             <Content
               style={{
