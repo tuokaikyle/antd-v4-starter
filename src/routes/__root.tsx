@@ -23,6 +23,8 @@ const { Header, Sider, Content, Footer } = Layout;
 
 type MenuItem = Required<MenuProps>['items'][number];
 
+const headerMenuItemStyle = { minWidth: 160 };
+
 const menuItems: MenuItem[] = [
   {
     key: '/',
@@ -63,21 +65,25 @@ const headerMenuItems: MenuProps['items'] = [
     key: '/settings/hello',
     icon: <SmileOutlined />,
     label: <Link to='/settings/hello'>Hello</Link>,
+    style: headerMenuItemStyle,
   },
   {
     key: '/settings/world',
     icon: <SmileOutlined />,
     label: 'World',
+    style: headerMenuItemStyle,
     children: [
       {
         key: '/settings/world/ab',
         icon: <SmileOutlined />,
         label: <Link to='/settings/world/ab'>AB</Link>,
+        style: headerMenuItemStyle,
       },
       {
         key: '/settings/world/cd',
         icon: <SmileOutlined />,
         label: <Link to='/settings/world/cd'>CD</Link>,
+        style: headerMenuItemStyle,
       },
     ],
   },
@@ -194,7 +200,11 @@ function RootComponent() {
             </span>
           </div>
 
-          <Dropdown menu={{ items: headerMenuItems }} placement='bottomRight'>
+          <Dropdown
+            menu={{ items: headerMenuItems }}
+            overlayStyle={{ minWidth: 180 }}
+            placement='bottomRight'
+          >
             <SettingOutlined style={{ paddingInline: '24px' }} />
           </Dropdown>
         </Header>
