@@ -15,6 +15,7 @@ import {
   FolderOpenOutlined,
   BookOutlined,
   SmileOutlined,
+  CloseOutlined,
 } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import type { MenuProps } from 'antd';
@@ -219,8 +220,8 @@ function RootComponent() {
       {isMobile && (
         <Header
           style={{
-            height: 55,
-            lineHeight: '55px',
+            height: 54,
+            lineHeight: '54px',
             padding: 0,
             background: 'white',
             display: 'flex',
@@ -231,7 +232,7 @@ function RootComponent() {
           <div>
             <MenuOutlined
               onClick={handleTriggerClick}
-              style={{ fontSize: '18px', padding: '0 20px', cursor: 'pointer' }}
+              style={{ fontSize: '14px', padding: '0 22px', cursor: 'pointer' }}
               title='Open navigation'
             />
             <span
@@ -263,10 +264,17 @@ function RootComponent() {
           <Drawer
             placement='left'
             width={240}
-            closable={true}
+            closable={false}
             onClose={handleDrawerClose}
             open={drawerVisible}
             bodyStyle={{ padding: 0 }}
+            title='Navigation'
+            extra={
+              <CloseOutlined
+                onClick={handleDrawerClose}
+                style={{ cursor: 'pointer', fontSize: 14 }}
+              />
+            }
           >
             <Menu
               theme='light'
@@ -313,7 +321,7 @@ function RootComponent() {
               <MenuOutlined
                 onClick={handleTriggerClick}
                 style={{
-                  fontSize: '18px',
+                  fontSize: '14px',
                   cursor: 'pointer',
                   flexShrink: 0,
                 }}
