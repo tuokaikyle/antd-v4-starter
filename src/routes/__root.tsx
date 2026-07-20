@@ -5,7 +5,7 @@ import {
   useRouterState,
 } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
-import { Breadcrumb, Drawer, Dropdown, Layout, Menu } from 'antd';
+import { Breadcrumb, Button, Drawer, Dropdown, Layout, Menu } from 'antd';
 import {
   HomeOutlined,
   UserOutlined,
@@ -213,12 +213,19 @@ function RootComponent() {
           </div>
 
           <Dropdown
-            menu={{ items: headerMenuItems }}
+            menu={{
+              items: headerMenuItems,
+              style: { padding: '4px' },
+            }}
             overlayStyle={{ minWidth: 160 }}
             placement='bottomRight'
             trigger={['click']}
           >
-            <SettingOutlined style={{ paddingInline: '24px' }} />
+            <Button
+              type='text'
+              icon={<SettingOutlined />}
+              style={{ marginInline: '8px' }}
+            />
           </Dropdown>
         </Header>
 
