@@ -14,6 +14,7 @@ import {
   TagsOutlined,
   FolderOpenOutlined,
   BookOutlined,
+  SmileOutlined,
 } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import type { MenuProps } from 'antd';
@@ -60,18 +61,22 @@ const menuItems: MenuItem[] = [
 const headerMenuItems: MenuProps['items'] = [
   {
     key: '/settings/hello',
+    icon: <SmileOutlined />,
     label: <Link to='/settings/hello'>Hello</Link>,
   },
   {
     key: '/settings/world',
+    icon: <SmileOutlined />,
     label: 'World',
     children: [
       {
         key: '/settings/world/ab',
+        icon: <SmileOutlined />,
         label: <Link to='/settings/world/ab'>AB</Link>,
       },
       {
         key: '/settings/world/cd',
+        icon: <SmileOutlined />,
         label: <Link to='/settings/world/cd'>CD</Link>,
       },
     ],
