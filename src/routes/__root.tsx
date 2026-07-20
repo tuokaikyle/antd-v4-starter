@@ -114,9 +114,7 @@ const breadcrumbLabels: Record<string, string> = {
 function getSelectedSidebarKeys(pathname: string) {
   const selectedKey = sidebarKeys
     .filter((key) =>
-      key === '/'
-        ? pathname === '/'
-        : pathname === key || pathname.startsWith(`${key}/`)
+      key === '/' ? pathname === '/' : pathname === key || pathname.startsWith(`${key}/`)
     )
     .sort((a, b) => b.length - a.length)[0];
 
@@ -177,12 +175,9 @@ function RootComponent() {
       <Layout>
         <Header
           style={{
-            height: isMobile ? 55 : 64,
-            lineHeight: isMobile ? '55px' : '64px',
             padding: 0,
             background: 'white',
             display: 'flex',
-            alignItems: 'center',
             justifyContent: 'space-between',
           }}
         >
@@ -190,13 +185,7 @@ function RootComponent() {
             <MenuOutlined
               onClick={handleTriggerClick}
               style={{ fontSize: '18px', padding: '0 20px', cursor: 'pointer' }}
-              title={
-                isMobile
-                  ? 'Open navigation'
-                  : collapsed
-                    ? 'Expand sidebar'
-                    : 'Collapse sidebar'
-              }
+              title={isMobile ? 'Open navigation' : collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
             />
             <span
               style={{
