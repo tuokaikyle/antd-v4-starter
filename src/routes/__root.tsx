@@ -15,6 +15,7 @@ import {
   FolderOpenOutlined,
   BookOutlined,
   SmileOutlined,
+  CloseOutlined,
 } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import type { MenuProps } from 'antd';
@@ -114,7 +115,9 @@ const breadcrumbLabels: Record<string, string> = {
 function getSelectedSidebarKeys(pathname: string) {
   const selectedKey = sidebarKeys
     .filter((key) =>
-      key === '/' ? pathname === '/' : pathname === key || pathname.startsWith(`${key}/`)
+      key === '/'
+        ? pathname === '/'
+        : pathname === key || pathname.startsWith(`${key}/`)
     )
     .sort((a, b) => b.length - a.length)[0];
 
@@ -185,7 +188,13 @@ function RootComponent() {
             <MenuOutlined
               onClick={handleTriggerClick}
               style={{ fontSize: '18px', padding: '0 20px', cursor: 'pointer' }}
-              title={isMobile ? 'Open navigation' : collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+              title={
+                isMobile
+                  ? 'Open navigation'
+                  : collapsed
+                    ? 'Expand sidebar'
+                    : 'Collapse sidebar'
+              }
             />
             <span
               style={{
@@ -215,10 +224,17 @@ function RootComponent() {
             <Drawer
               placement='left'
               width={240}
-              closable={true}
+              closable={false}
               onClose={handleDrawerClose}
-              visible={drawerVisible}
+              open={drawerVisible}
               bodyStyle={{ padding: 0 }}
+              title='Navigation'
+              extra={
+                <CloseOutlined
+                  onClick={handleDrawerClose}
+                  style={{ cursor: 'pointer' }}
+                />
+              }
             >
               <Menu
                 theme='light'
