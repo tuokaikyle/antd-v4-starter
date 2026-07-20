@@ -5,7 +5,7 @@ import {
   useRouterState,
 } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
-import { Breadcrumb, Drawer, Dropdown, Layout, Menu, Tooltip } from 'antd';
+import { Breadcrumb, Drawer, Dropdown, Layout, Menu } from 'antd';
 import {
   HomeOutlined,
   UserOutlined,
@@ -56,35 +56,6 @@ const menuItems: MenuItem[] = [
     label: <Link to='/about'>About</Link>,
   },
 ];
-
-// Map each menu key to its raw text for tooltip display when sidebar is collapsed
-const menuTitles: Record<string, string> = {
-  '/': 'Home',
-  '/users': 'Users',
-  '/books': 'Book',
-  '/books/french': 'French',
-  '/books/spanish': 'Spanish',
-  '/about': 'About',
-};
-
-function addTooltips(items: MenuItem[]): MenuItem[] {
-  return items.map((item) => {
-    if (!item) return item;
-    const title = item.key ? menuTitles[String(item.key)] : undefined;
-    const result: MenuItem = { ...item };
-    if (title && item.label) {
-      result.label = (
-        <Tooltip title={title} placement='right'>
-          <span>{item.label}</span>
-        </Tooltip>
-      );
-    }
-    if (item.children) {
-      result.children = addTooltips([...item.children]);
-    }
-    return result;
-  });
-}
 
 const headerMenuItems: MenuProps['items'] = [
   {
@@ -188,8 +159,6 @@ function RootComponent() {
   // On mobile, close the drawer after a navigation item is selected
   const handleDrawerClose = () => setDrawerVisible(false);
 
-  const displayedMenuItems = collapsed ? addTooltips(menuItems) : menuItems;
-
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Layout>
@@ -257,7 +226,7 @@ function RootComponent() {
                 theme='light'
                 mode='inline'
                 selectedKeys={selectedSidebarKeys}
-                items={displayedMenuItems}
+                items={menuItems}
               />
             </Sider>
           )}
