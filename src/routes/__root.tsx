@@ -5,7 +5,7 @@ import {
   useRouterState,
 } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
-import { Breadcrumb, Dropdown, Layout, Menu } from 'antd';
+import { Breadcrumb, Drawer, Dropdown, Layout, Menu, Tooltip } from 'antd';
 import {
   HomeOutlined,
   UserOutlined,
@@ -15,7 +15,7 @@ import {
   FolderOpenOutlined,
   BookOutlined,
 } from '@ant-design/icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { MenuProps } from 'antd';
 
 const { Header, Sider, Content, Footer } = Layout;
@@ -56,6 +56,35 @@ const menuItems: MenuItem[] = [
     label: <Link to='/about'>About</Link>,
   },
 ];
+
+// Map each menu key to its raw text for tooltip display when sidebar is collapsed
+const menuTitles: Record<string, string> = {
+  '/': 'Home',
+  '/users': 'Users',
+  '/books': 'Book',
+  '/books/french': 'French',
+  '/books/spanish': 'Spanish',
+  '/about': 'About',
+};
+
+function addTooltips(items: MenuItem[]): MenuItem[] {
+  return items.map((item) => {
+    if (!item) return item;
+    const title = item.key ? menuTitles[String(item.key)] : undefined;
+    const result: MenuItem = { ...item };
+    if (title && item.label) {
+      result.label = (
+        <Tooltip title={title} placement='right'>
+          <span>{item.label}</span>
+        </Tooltip>
+      );
+    }
+    if (item.children) {
+      result.children = addTooltips([...item.children]);
+    }
+    return result;
+  });
+}
 
 const headerMenuItems: MenuProps['items'] = [
   {
@@ -131,10 +160,35 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   const [collapsed, setCollapsed] = useState(false);
+  const [drawerVisible, setDrawerVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(
+    () => window.matchMedia('(max-width: 767px)').matches
+  );
   const routerState = useRouterState();
   const currentPath = routerState.location.pathname;
   const selectedSidebarKeys = getSelectedSidebarKeys(currentPath);
   const breadcrumbItems = getBreadcrumbItems(currentPath);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 767px)');
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, []);
+
+  // On desktop, toggle sidebar collapse. On mobile, toggle the drawer.
+  const handleTriggerClick = () => {
+    if (isMobile) {
+      setDrawerVisible((prev) => !prev);
+    } else {
+      setCollapsed((prev) => !prev);
+    }
+  };
+
+  // On mobile, close the drawer after a navigation item is selected
+  const handleDrawerClose = () => setDrawerVisible(false);
+
+  const displayedMenuItems = collapsed ? addTooltips(menuItems) : menuItems;
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -149,10 +203,9 @@ function RootComponent() {
         >
           <div>
             <MenuOutlined
-              onClick={() => {
-                setCollapsed(!collapsed);
-              }}
+              onClick={handleTriggerClick}
               style={{ fontSize: '18px', padding: '0 20px', cursor: 'pointer' }}
+              title={isMobile ? 'Open navigation' : collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
             />
             <span
               style={{
@@ -173,22 +226,41 @@ function RootComponent() {
         </Header>
 
         <Layout>
-          <Sider
-            collapsible
-            trigger={null}
-            breakpoint='md'
-            width={240}
-            collapsedWidth='60'
-            collapsed={collapsed}
-            style={{ background: 'white' }}
-          >
-            <Menu
-              theme='light'
-              mode='inline'
-              selectedKeys={selectedSidebarKeys}
-              items={menuItems}
-            />
-          </Sider>
+          {isMobile ? (
+            <Drawer
+              placement='left'
+              width={240}
+              closable={true}
+              onClose={handleDrawerClose}
+              visible={drawerVisible}
+              bodyStyle={{ padding: 0 }}
+            >
+              <Menu
+                theme='light'
+                mode='inline'
+                selectedKeys={selectedSidebarKeys}
+                items={menuItems}
+                onClick={handleDrawerClose}
+              />
+            </Drawer>
+          ) : (
+            <Sider
+              collapsible
+              trigger={null}
+              breakpoint='md'
+              width={240}
+              collapsedWidth='60'
+              collapsed={collapsed}
+              style={{ background: 'white' }}
+            >
+              <Menu
+                theme='light'
+                mode='inline'
+                selectedKeys={selectedSidebarKeys}
+                items={displayedMenuItems}
+              />
+            </Sider>
+          )}
           <Layout>
             <Breadcrumb style={{ margin: '16px' }}>
               {breadcrumbItems.map((item) => (
