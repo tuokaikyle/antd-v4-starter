@@ -181,13 +181,16 @@ function RootComponent() {
             padding: 0,
             background: 'white',
             display: 'flex',
+            alignItems: 'center',
             justifyContent: 'space-between',
+            height: isMobile ? 54 : 64,
+            lineHeight: isMobile ? '54px' : '64px',
           }}
         >
           <div>
             <MenuOutlined
               onClick={handleTriggerClick}
-              style={{ fontSize: '18px', padding: '0 20px', cursor: 'pointer' }}
+              style={{ fontSize: '14px', padding: '0 22px', cursor: 'pointer' }}
               title={
                 isMobile
                   ? 'Open navigation'
@@ -232,7 +235,7 @@ function RootComponent() {
               extra={
                 <CloseOutlined
                   onClick={handleDrawerClose}
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: 'pointer', fontSize: 14 }}
                 />
               }
             >
