@@ -96,7 +96,7 @@ function Users() {
   return (
     <div>
       <h1>Users</h1>
-      <Table columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={data} scroll={{ x: 'max-content' }} />
     </div>
   );
 }
