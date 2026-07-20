@@ -202,8 +202,9 @@ function RootComponent() {
 
           <Dropdown
             menu={{ items: headerMenuItems }}
-            overlayStyle={{ minWidth: 180 }}
+            overlayStyle={{ minWidth: 160 }}
             placement='bottomRight'
+            trigger={['click']}
           >
             <SettingOutlined style={{ paddingInline: '24px' }} />
           </Dropdown>
