@@ -60,6 +60,40 @@ const menuItems: MenuItem[] = [
   },
 ];
 
+// Desktop sidebar includes Settings; mobile drawer does not (Settings is in the header)
+const sidebarMenuItems: MenuItem[] = [
+  ...menuItems,
+  {
+    key: '/settings',
+    icon: <SettingOutlined />,
+    label: 'Settings',
+    children: [
+      {
+        key: '/settings/hello',
+        icon: <SmileOutlined />,
+        label: <Link to='/settings/hello'>Hello</Link>,
+      },
+      {
+        key: '/settings/world',
+        icon: <SmileOutlined />,
+        label: 'World',
+        children: [
+          {
+            key: '/settings/world/ab',
+            icon: <SmileOutlined />,
+            label: <Link to='/settings/world/ab'>AB</Link>,
+          },
+          {
+            key: '/settings/world/cd',
+            icon: <SmileOutlined />,
+            label: <Link to='/settings/world/cd'>CD</Link>,
+          },
+        ],
+      },
+    ],
+  },
+];
+
 const headerMenuItems: MenuProps['items'] = [
   {
     key: '/settings/hello',
@@ -96,6 +130,11 @@ const sidebarKeys = [
   '/books/french',
   '/books/spanish',
   '/about',
+  '/settings',
+  '/settings/hello',
+  '/settings/world',
+  '/settings/world/ab',
+  '/settings/world/cd',
 ];
 
 const breadcrumbLabels: Record<string, string> = {
@@ -114,7 +153,9 @@ const breadcrumbLabels: Record<string, string> = {
 function getSelectedSidebarKeys(pathname: string) {
   const selectedKey = sidebarKeys
     .filter((key) =>
-      key === '/' ? pathname === '/' : pathname === key || pathname.startsWith(`${key}/`)
+      key === '/'
+        ? pathname === '/'
+        : pathname === key || pathname.startsWith(`${key}/`)
     )
     .sort((a, b) => b.length - a.length)[0];
 
@@ -124,16 +165,16 @@ function getSelectedSidebarKeys(pathname: string) {
 function getBreadcrumbItems(pathname: string) {
   const segments = pathname.split('/').filter(Boolean);
 
-  return [
-    'Home',
-    ...segments.map((segment, index) => {
-      if (index > 0 && segments[index - 1] === 'users') {
-        return `User ${segment}`;
-      }
+  if (segments.length === 0) {
+    return ['Home'];
+  }
 
-      return breadcrumbLabels[segment] ?? segment;
-    }),
-  ];
+  return segments.map((segment, index) => {
+    if (index > 0 && segments[index - 1] === 'users') {
+      return `User ${segment}`;
+    }
+    return breadcrumbLabels[segment] ?? segment;
+  });
 }
 
 export const Route = createRootRoute({
@@ -171,13 +212,19 @@ function RootComponent() {
   const handleDrawerClose = () => setDrawerVisible(false);
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Layout>
+    <Layout
+      style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}
+    >
+      {/* ---- Mobile Header ---- */}
+      {isMobile && (
         <Header
           style={{
+            height: 55,
+            lineHeight: '55px',
             padding: 0,
             background: 'white',
             display: 'flex',
+            alignItems: 'center',
             justifyContent: 'space-between',
           }}
         >
@@ -185,7 +232,7 @@ function RootComponent() {
             <MenuOutlined
               onClick={handleTriggerClick}
               style={{ fontSize: '18px', padding: '0 20px', cursor: 'pointer' }}
-              title={isMobile ? 'Open navigation' : collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+              title='Open navigation'
             />
             <span
               style={{
@@ -209,66 +256,104 @@ function RootComponent() {
             <SettingOutlined style={{ paddingInline: '24px' }} />
           </Dropdown>
         </Header>
+      )}
 
-        <Layout>
-          {isMobile ? (
-            <Drawer
-              placement='left'
-              width={240}
-              closable={true}
-              onClose={handleDrawerClose}
-              visible={drawerVisible}
-              bodyStyle={{ padding: 0 }}
+      <Layout style={{ flex: 1 }}>
+        {isMobile ? (
+          <Drawer
+            placement='left'
+            width={240}
+            closable={true}
+            onClose={handleDrawerClose}
+            open={drawerVisible}
+            bodyStyle={{ padding: 0 }}
+          >
+            <Menu
+              theme='light'
+              mode='inline'
+              selectedKeys={selectedSidebarKeys}
+              items={menuItems}
+              onClick={handleDrawerClose}
+            />
+          </Drawer>
+        ) : (
+          <Sider
+            collapsible
+            trigger={null}
+            width={240}
+            collapsedWidth='60'
+            collapsed={collapsed}
+            style={{ background: 'white' }}
+          >
+            {/* Logo Area: [logo] [trigger] — collapses to just [trigger] */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: collapsed ? 'center' : 'space-between',
+                height: 64,
+                padding: collapsed ? 0 : '0 16px',
+                overflow: 'hidden',
+              }}
             >
-              <Menu
-                theme='light'
-                mode='inline'
-                selectedKeys={selectedSidebarKeys}
-                items={menuItems}
-                onClick={handleDrawerClose}
+              {!collapsed && (
+                <span
+                  style={{
+                    fontSize: '18px',
+                    background: '#d9f7be',
+                    color: '#52c41a',
+                    fontWeight: 'bold',
+                    padding: '8px',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  Antd starter
+                </span>
+              )}
+              <MenuOutlined
+                onClick={handleTriggerClick}
+                style={{
+                  fontSize: '18px',
+                  cursor: 'pointer',
+                  flexShrink: 0,
+                }}
+                title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
               />
-            </Drawer>
-          ) : (
-            <Sider
-              collapsible
-              trigger={null}
-              breakpoint='md'
-              width={240}
-              collapsedWidth='60'
-              collapsed={collapsed}
-              style={{ background: 'white' }}
-            >
-              <Menu
-                theme='light'
-                mode='inline'
-                selectedKeys={selectedSidebarKeys}
-                items={menuItems}
-              />
-            </Sider>
-          )}
-          <Layout>
-            <Breadcrumb style={{ margin: '16px' }}>
+            </div>
+
+            <Menu
+              theme='light'
+              mode='inline'
+              selectedKeys={selectedSidebarKeys}
+              items={sidebarMenuItems}
+            />
+          </Sider>
+        )}
+        <Layout style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+          {breadcrumbItems.length > 0 && (
+            <Breadcrumb style={{ margin: '16px 16px 16px 24px' }}>
               {breadcrumbItems.map((item) => (
                 <Breadcrumb.Item key={item}>{item}</Breadcrumb.Item>
               ))}
             </Breadcrumb>
-            <Content
-              style={{
-                margin: '0 16px',
-                padding: 24,
-                background: '#fff',
-                minHeight: 280,
-              }}
-            >
-              <Outlet />
-            </Content>
-          </Layout>
+          )}
+          <Content
+            style={{
+              margin: '0 16px',
+              padding: 24,
+              background: '#fff',
+              flex: 1,
+              minHeight: 280,
+            }}
+          >
+            <Outlet />
+          </Content>
         </Layout>
-
-        <Footer style={{ textAlign: 'center' }}>
-          My App ©{new Date().getFullYear()} Created with Ant Design
-        </Footer>
       </Layout>
+
+      <Footer style={{ textAlign: 'center' }}>
+        My App ©{new Date().getFullYear()} Created with Ant Design
+      </Footer>
       <TanStackRouterDevtools />
     </Layout>
   );
