@@ -13,11 +13,10 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UsersIndexRouteImport } from './routes/users/index'
 import { Route as UsersUserIdRouteImport } from './routes/users/$userId'
+import { Route as SettingsWorldRouteImport } from './routes/settings/world'
 import { Route as SettingsHelloRouteImport } from './routes/settings/hello'
 import { Route as BooksSpanishRouteImport } from './routes/books/spanish'
 import { Route as BooksFrenchRouteImport } from './routes/books/french'
-import { Route as SettingsWorldCdRouteImport } from './routes/settings/world/cd'
-import { Route as SettingsWorldAbRouteImport } from './routes/settings/world/ab'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -39,6 +38,11 @@ const UsersUserIdRoute = UsersUserIdRouteImport.update({
   path: '/users/$userId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SettingsWorldRoute = SettingsWorldRouteImport.update({
+  id: '/settings/world',
+  path: '/settings/world',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SettingsHelloRoute = SettingsHelloRouteImport.update({
   id: '/settings/hello',
   path: '/settings/hello',
@@ -54,16 +58,6 @@ const BooksFrenchRoute = BooksFrenchRouteImport.update({
   path: '/books/french',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SettingsWorldCdRoute = SettingsWorldCdRouteImport.update({
-  id: '/settings/world/cd',
-  path: '/settings/world/cd',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SettingsWorldAbRoute = SettingsWorldAbRouteImport.update({
-  id: '/settings/world/ab',
-  path: '/settings/world/ab',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -71,10 +65,9 @@ export interface FileRoutesByFullPath {
   '/books/french': typeof BooksFrenchRoute
   '/books/spanish': typeof BooksSpanishRoute
   '/settings/hello': typeof SettingsHelloRoute
+  '/settings/world': typeof SettingsWorldRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/users': typeof UsersIndexRoute
-  '/settings/world/ab': typeof SettingsWorldAbRoute
-  '/settings/world/cd': typeof SettingsWorldCdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -82,10 +75,9 @@ export interface FileRoutesByTo {
   '/books/french': typeof BooksFrenchRoute
   '/books/spanish': typeof BooksSpanishRoute
   '/settings/hello': typeof SettingsHelloRoute
+  '/settings/world': typeof SettingsWorldRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/users': typeof UsersIndexRoute
-  '/settings/world/ab': typeof SettingsWorldAbRoute
-  '/settings/world/cd': typeof SettingsWorldCdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -94,10 +86,9 @@ export interface FileRoutesById {
   '/books/french': typeof BooksFrenchRoute
   '/books/spanish': typeof BooksSpanishRoute
   '/settings/hello': typeof SettingsHelloRoute
+  '/settings/world': typeof SettingsWorldRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/users/': typeof UsersIndexRoute
-  '/settings/world/ab': typeof SettingsWorldAbRoute
-  '/settings/world/cd': typeof SettingsWorldCdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -107,10 +98,9 @@ export interface FileRouteTypes {
     | '/books/french'
     | '/books/spanish'
     | '/settings/hello'
+    | '/settings/world'
     | '/users/$userId'
     | '/users'
-    | '/settings/world/ab'
-    | '/settings/world/cd'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -118,10 +108,9 @@ export interface FileRouteTypes {
     | '/books/french'
     | '/books/spanish'
     | '/settings/hello'
+    | '/settings/world'
     | '/users/$userId'
     | '/users'
-    | '/settings/world/ab'
-    | '/settings/world/cd'
   id:
     | '__root__'
     | '/'
@@ -129,10 +118,9 @@ export interface FileRouteTypes {
     | '/books/french'
     | '/books/spanish'
     | '/settings/hello'
+    | '/settings/world'
     | '/users/$userId'
     | '/users/'
-    | '/settings/world/ab'
-    | '/settings/world/cd'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -141,10 +129,9 @@ export interface RootRouteChildren {
   BooksFrenchRoute: typeof BooksFrenchRoute
   BooksSpanishRoute: typeof BooksSpanishRoute
   SettingsHelloRoute: typeof SettingsHelloRoute
+  SettingsWorldRoute: typeof SettingsWorldRoute
   UsersUserIdRoute: typeof UsersUserIdRoute
   UsersIndexRoute: typeof UsersIndexRoute
-  SettingsWorldAbRoute: typeof SettingsWorldAbRoute
-  SettingsWorldCdRoute: typeof SettingsWorldCdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -177,6 +164,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UsersUserIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/settings/world': {
+      id: '/settings/world'
+      path: '/settings/world'
+      fullPath: '/settings/world'
+      preLoaderRoute: typeof SettingsWorldRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/settings/hello': {
       id: '/settings/hello'
       path: '/settings/hello'
@@ -198,20 +192,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BooksFrenchRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/settings/world/cd': {
-      id: '/settings/world/cd'
-      path: '/settings/world/cd'
-      fullPath: '/settings/world/cd'
-      preLoaderRoute: typeof SettingsWorldCdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/settings/world/ab': {
-      id: '/settings/world/ab'
-      path: '/settings/world/ab'
-      fullPath: '/settings/world/ab'
-      preLoaderRoute: typeof SettingsWorldAbRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -221,10 +201,9 @@ const rootRouteChildren: RootRouteChildren = {
   BooksFrenchRoute: BooksFrenchRoute,
   BooksSpanishRoute: BooksSpanishRoute,
   SettingsHelloRoute: SettingsHelloRoute,
+  SettingsWorldRoute: SettingsWorldRoute,
   UsersUserIdRoute: UsersUserIdRoute,
   UsersIndexRoute: UsersIndexRoute,
-  SettingsWorldAbRoute: SettingsWorldAbRoute,
-  SettingsWorldCdRoute: SettingsWorldCdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -5,7 +5,7 @@ import {
   useRouterState,
 } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
-import { Breadcrumb, Button, Drawer, Dropdown, Layout, Menu } from 'antd';
+import { Breadcrumb, Drawer, Layout, Menu } from 'antd';
 import {
   HomeOutlined,
   UserOutlined,
@@ -14,7 +14,6 @@ import {
   TagsOutlined,
   FolderOpenOutlined,
   BookOutlined,
-  SmileOutlined,
   CloseOutlined,
 } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
@@ -23,8 +22,6 @@ import type { MenuProps } from 'antd';
 const { Header, Sider, Content, Footer } = Layout;
 
 type MenuItem = Required<MenuProps>['items'][number];
-
-const headerMenuItemStyle = { minWidth: 160 };
 
 const menuItems: MenuItem[] = [
   {
@@ -61,31 +58,13 @@ const menuItems: MenuItem[] = [
   },
 ];
 
-const headerMenuItems: MenuProps['items'] = [
+const horizontalMenuItems: MenuProps['items'] = [
   {
-    key: '/settings/hello',
-    icon: <SmileOutlined />,
-    label: <Link to='/settings/hello'>Hello</Link>,
-    style: headerMenuItemStyle,
-  },
-  {
-    key: '/settings/world',
-    icon: <SmileOutlined />,
-    label: 'World',
-    style: headerMenuItemStyle,
+    icon: <SettingOutlined style={{ padding: '0px 7px 0px 17px' }} />,
+    key: 'settings',
     children: [
-      {
-        key: '/settings/world/ab',
-        icon: <SmileOutlined />,
-        label: <Link to='/settings/world/ab'>AB</Link>,
-        style: headerMenuItemStyle,
-      },
-      {
-        key: '/settings/world/cd',
-        icon: <SmileOutlined />,
-        label: <Link to='/settings/world/cd'>CD</Link>,
-        style: headerMenuItemStyle,
-      },
+      { label: <Link to='/settings/hello'>Hello</Link>, key: 'settings:hello' },
+      { label: <Link to='/settings/world'>World</Link>, key: 'settings:world' },
     ],
   },
 ];
@@ -212,21 +191,15 @@ function RootComponent() {
             </span>
           </div>
 
-          <Dropdown
-            menu={{
-              items: headerMenuItems,
-              style: { padding: '4px' },
+          <Menu
+            mode='horizontal'
+            selectedKeys={[]}
+            items={horizontalMenuItems}
+            style={{
+              background: 'transparent',
+              borderBottom: 'none',
             }}
-            overlayStyle={{ minWidth: 160 }}
-            placement='bottomRight'
-            trigger={['click']}
-          >
-            <Button
-              type='text'
-              icon={<SettingOutlined />}
-              style={{ marginInline: '8px' }}
-            />
-          </Dropdown>
+          />
         </Header>
 
         <Layout>
