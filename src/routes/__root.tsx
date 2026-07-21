@@ -106,16 +106,16 @@ function getSelectedSidebarKeys(pathname: string) {
 function getBreadcrumbItems(pathname: string) {
   const segments = pathname.split('/').filter(Boolean);
 
-  return [
-    'Home',
-    ...segments.map((segment, index) => {
-      if (index > 0 && segments[index - 1] === 'users') {
-        return `User ${segment}`;
-      }
+  if (segments.length === 0) {
+    return ['Home'];
+  }
 
-      return breadcrumbLabels[segment] ?? segment;
-    }),
-  ];
+  return segments.map((segment, index) => {
+    if (index > 0 && segments[index - 1] === 'users') {
+      return `User ${segment}`;
+    }
+    return breadcrumbLabels[segment] ?? segment;
+  });
 }
 
 export const Route = createRootRoute({
@@ -246,7 +246,7 @@ function RootComponent() {
             </Sider>
           )}
           <Layout>
-            <Breadcrumb style={{ margin: '16px' }}>
+            <Breadcrumb style={{ margin: '16px 16px 16px 20px' }}>
               {breadcrumbItems.map((item) => (
                 <Breadcrumb.Item key={item}>{item}</Breadcrumb.Item>
               ))}
