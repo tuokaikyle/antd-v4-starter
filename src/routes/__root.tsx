@@ -58,7 +58,7 @@ const menuItems: MenuItem[] = [
   },
 ];
 
-// Desktop sidebar includes Settings; mobile drawer does not (Settings is in the header)
+// Both desktop sidebar and mobile drawer include Settings
 const sidebarMenuItems: MenuItem[] = [
   ...menuItems,
   {
@@ -74,17 +74,6 @@ const sidebarMenuItems: MenuItem[] = [
         key: '/settings/world',
         label: <Link to='/settings/world'>World</Link>,
       },
-    ],
-  },
-];
-
-const horizontalMenuItems: MenuProps['items'] = [
-  {
-    icon: <SettingOutlined style={{ padding: '0px 7px 0px 17px' }} />,
-    key: 'settings',
-    children: [
-      { label: <Link to='/settings/hello'>Hello</Link>, key: 'settings:hello' },
-      { label: <Link to='/settings/world'>World</Link>, key: 'settings:world' },
     ],
   },
 ];
@@ -209,15 +198,6 @@ function RootComponent() {
             </span>
           </div>
 
-          <Menu
-            mode='horizontal'
-            selectedKeys={[]}
-            items={horizontalMenuItems}
-            style={{
-              background: 'transparent',
-              borderBottom: 'none',
-            }}
-          />
         </Header>
       )}
 
@@ -242,7 +222,7 @@ function RootComponent() {
               theme='light'
               mode='inline'
               selectedKeys={selectedSidebarKeys}
-              items={menuItems}
+              items={sidebarMenuItems}
               onClick={handleDrawerClose}
             />
           </Drawer>
