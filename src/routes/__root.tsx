@@ -87,8 +87,6 @@ const breadcrumbLabels: Record<string, string> = {
   spanish: 'Spanish',
   users: 'Users',
   world: 'World',
-  ab: 'AB',
-  cd: 'CD',
 };
 
 function getSelectedSidebarKeys(pathname: string) {
@@ -192,6 +190,7 @@ function RootComponent() {
           </div>
 
           <Menu
+            key={currentPath}
             mode='horizontal'
             selectedKeys={[]}
             items={horizontalMenuItems}
