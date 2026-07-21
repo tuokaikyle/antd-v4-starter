@@ -5,7 +5,7 @@ import {
   useRouterState,
 } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
-import { Breadcrumb, Button, Drawer, Dropdown, Layout, Menu } from 'antd';
+import { Breadcrumb, Drawer, Layout, Menu } from 'antd';
 import {
   HomeOutlined,
   UserOutlined,
@@ -14,7 +14,6 @@ import {
   TagsOutlined,
   FolderOpenOutlined,
   BookOutlined,
-  SmileOutlined,
   CloseOutlined,
 } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
@@ -23,8 +22,6 @@ import type { MenuProps } from 'antd';
 const { Header, Sider, Content, Footer } = Layout;
 
 type MenuItem = Required<MenuProps>['items'][number];
-
-const headerMenuItemStyle = { minWidth: 160 };
 
 const menuItems: MenuItem[] = [
   {
@@ -71,55 +68,34 @@ const sidebarMenuItems: MenuItem[] = [
     children: [
       {
         key: '/settings/hello',
-        icon: <SmileOutlined />,
         label: <Link to='/settings/hello'>Hello</Link>,
       },
       {
         key: '/settings/world',
-        icon: <SmileOutlined />,
-        label: 'World',
-        children: [
-          {
-            key: '/settings/world/ab',
-            icon: <SmileOutlined />,
-            label: <Link to='/settings/world/ab'>AB</Link>,
-          },
-          {
-            key: '/settings/world/cd',
-            icon: <SmileOutlined />,
-            label: <Link to='/settings/world/cd'>CD</Link>,
-          },
-        ],
+        label: <Link to='/settings/world'>World</Link>,
       },
     ],
   },
 ];
 
-const headerMenuItems: MenuProps['items'] = [
+const horizontalMenuItems: MenuProps['items'] = [
   {
-    key: '/settings/hello',
-    icon: <SmileOutlined />,
-    label: <Link to='/settings/hello'>Hello</Link>,
-    style: headerMenuItemStyle,
-  },
-  {
-    key: '/settings/world',
-    icon: <SmileOutlined />,
-    label: 'World',
-    style: headerMenuItemStyle,
+    icon: (
+      <div
+        style={{
+          width: 36,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <SettingOutlined />
+      </div>
+    ),
+    key: 'settings',
     children: [
-      {
-        key: '/settings/world/ab',
-        icon: <SmileOutlined />,
-        label: <Link to='/settings/world/ab'>AB</Link>,
-        style: headerMenuItemStyle,
-      },
-      {
-        key: '/settings/world/cd',
-        icon: <SmileOutlined />,
-        label: <Link to='/settings/world/cd'>CD</Link>,
-        style: headerMenuItemStyle,
-      },
+      { label: <Link to='/settings/hello'>Hello</Link>, key: 'settings:hello' },
+      { label: <Link to='/settings/world'>World</Link>, key: 'settings:world' },
     ],
   },
 ];
@@ -134,8 +110,6 @@ const sidebarKeys = [
   '/settings',
   '/settings/hello',
   '/settings/world',
-  '/settings/world/ab',
-  '/settings/world/cd',
 ];
 
 const breadcrumbLabels: Record<string, string> = {
@@ -147,8 +121,6 @@ const breadcrumbLabels: Record<string, string> = {
   spanish: 'Spanish',
   users: 'Users',
   world: 'World',
-  ab: 'AB',
-  cd: 'CD',
 };
 
 function getSelectedSidebarKeys(pathname: string) {
@@ -248,21 +220,15 @@ function RootComponent() {
             </span>
           </div>
 
-          <Dropdown
-            menu={{
-              items: headerMenuItems,
-              style: { padding: '4px' },
+          <Menu
+            mode='horizontal'
+            selectedKeys={[]}
+            items={horizontalMenuItems}
+            style={{
+              background: 'transparent',
+              borderBottom: 'none',
             }}
-            overlayStyle={{ minWidth: 160 }}
-            placement='bottomRight'
-            trigger={['click']}
-          >
-            <Button
-              type='text'
-              icon={<SettingOutlined />}
-              style={{ marginInline: '8px' }}
-            />
-          </Dropdown>
+          />
         </Header>
       )}
 
