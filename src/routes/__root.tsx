@@ -80,18 +80,7 @@ const sidebarMenuItems: MenuItem[] = [
 
 const horizontalMenuItems: MenuProps['items'] = [
   {
-    icon: (
-      <div
-        style={{
-          width: 36,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <SettingOutlined />
-      </div>
-    ),
+    icon: <SettingOutlined style={{ padding: '0px 7px 0px 17px' }} />,
     key: 'settings',
     children: [
       { label: <Link to='/settings/hello'>Hello</Link>, key: 'settings:hello' },
